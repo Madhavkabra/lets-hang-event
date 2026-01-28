@@ -1,6 +1,7 @@
 import { useRef, useState } from 'react';
 import { useRecoilState } from 'recoil';
 import { eventFormState } from '../store/eventAtoms';
+import { createEventAPI } from '../api';
 import PreviewCard from '../components/event/PreviewCard';
 import ChangeBackgroundButton from '../components/event/ChangeBackgroundButton';
 import PhoneInput from '../components/event/PhoneInput';
@@ -62,21 +63,20 @@ const CreateEvent = () => {
     };
 
     const handleSubmit = async () => {
-        // This function can be called to submit the data to your API
-        console.log('Event Data to submit:', eventData);
-
-        // Example API call structure:
-        // try {
-        //   const response = await fetch('/api/events', {
-        //     method: 'POST',
-        //     headers: { 'Content-Type': 'application/json' },
-        //     body: JSON.stringify(eventData),
-        //   });
-        //   const result = await response.json();
-        //   console.log('Event created:', result);
-        // } catch (error) {
-        //   console.error('Error creating event:', error);
-        // }
+        try {
+            const result = await createEventAPI(eventData);
+            
+            if (result.success) {
+                alert(`🎉 Event published successfully!\n\nEvent ID: ${result.eventId}\nEvent URL: ${result.eventUrl}`);
+                
+                // Optionally reset form or redirect
+                // setEventData(defaultEventData);
+                // window.location.href = result.eventUrl;
+            }
+        } catch (error) {
+            console.error('Failed to create event:', error);
+            alert('Failed to publish event. Please try again.');
+        }
     };
 
     return (

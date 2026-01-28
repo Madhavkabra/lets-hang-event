@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useRecoilState } from 'recoil';
 import { ArrowRight } from 'lucide-react';
 import { eventFormState } from '../../store/eventAtoms';
+import { saveDraftAPI } from '../../api';
 import Button from '../ui/Button';
 
 const PhoneInput = () => {
@@ -13,7 +14,7 @@ const PhoneInput = () => {
         if (!phone.trim()) {
             return true;
         }
-        
+
         // Regex for international phone numbers
         // Accepts: +1234567890, (123) 456-7890, 123-456-7890, 123.456.7890, 1234567890
         const phoneRegex = /^[+]?[(]?[0-9]{1,4}[)]?[-\s.]?[(]?[0-9]{1,4}[)]?[-\s.]?[0-9]{1,4}[-\s.]?[0-9]{1,9}$/;
@@ -33,7 +34,7 @@ const PhoneInput = () => {
         }
     };
 
-    const handleSaveDraft = () => {
+    const handleSaveDraft = async () => {
         // Validate before saving
         const isValid = validatePhoneNumber(eventData.phoneNumber);
         if (!isValid) {
@@ -41,8 +42,15 @@ const PhoneInput = () => {
             return;
         }
         
-        // Save draft logic - could save to localStorage or API
-        console.log('Saving draft:', eventData);
+        try {
+            const result = await saveDraftAPI(eventData);
+            if (result.success) {
+                alert(`Draft saved successfully! Draft ID: ${result.draftId}`);
+            }
+        } catch (error) {
+            console.error('Failed to save draft:', error);
+            alert('Failed to save draft. Please try again.');
+        }
     };
 
     return (
@@ -50,12 +58,12 @@ const PhoneInput = () => {
             {/* Inner background */}
             <div
                 className="relative flex items-center gap-2 p-4 min-h-[64px] rounded-2xl bg-black/20 backdrop-blur-md transition-all duration-200"
-                style={{ 
-                    border: isInvalid 
-                        ? '1px solid rgba(239, 68, 68, 0.8)' 
+                style={{
+                    border: isInvalid
+                        ? '1px solid rgba(239, 68, 68, 0.8)'
                         : '1px solid rgba(255, 255, 255, 0.2)',
-                    backgroundColor: isInvalid 
-                        ? 'rgba(239, 68, 68, 0.1)' 
+                    backgroundColor: isInvalid
+                        ? 'rgba(239, 68, 68, 0.1)'
                         : 'rgba(0, 0, 0, 0.2)'
                 }}
             >

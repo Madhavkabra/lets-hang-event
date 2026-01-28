@@ -1,6 +1,7 @@
 import { useRecoilState } from 'recoil';
 import { eventFormState } from '../../store/eventAtoms';
 import Card from '../ui/Card';
+import LocationInput from './LocationInput';
 
 const DetailsGroup = () => {
     const [eventData, setEventData] = useRecoilState(eventFormState);
@@ -8,13 +9,13 @@ const DetailsGroup = () => {
     const handleCostChange = (value: string) => {
         // Remove any non-numeric characters except decimal point
         const numericValue = value.replace(/[^0-9.]/g, '');
-        
+
         // Ensure only one decimal point
         const parts = numericValue.split('.');
-        const formattedValue = parts.length > 2 
-            ? parts[0] + '.' + parts.slice(1).join('') 
+        const formattedValue = parts.length > 2
+            ? parts[0] + '.' + parts.slice(1).join('')
             : numericValue;
-        
+
         setEventData(prev => ({ ...prev, costPerPerson: formattedValue }));
     };
 
@@ -39,16 +40,7 @@ const DetailsGroup = () => {
             <div className="h-px mx-4 my-4" style={{ background: 'rgba(127, 127, 127, 0.2)' }}></div>
 
             {/* Location */}
-            <div className="flex items-center gap-3 px-4 h-[36px]">
-                <span className="shrink-0" style={{ fontSize: '16px', lineHeight: '16px' }}>📍</span>
-                <input
-                    type="text"
-                    placeholder="Location"
-                    value={eventData.location}
-                    onChange={(e) => setEventData(prev => ({ ...prev, location: e.target.value }))}
-                    className="flex-1 bg-transparent text-white placeholder:text-white/60 focus:outline-none font-sf-pro text-callout"
-                />
-            </div>
+            <LocationInput />
 
             {/* Separator */}
             <div className="h-px mx-4 my-4" style={{ background: 'rgba(127, 127, 127, 0.2)' }}></div>
