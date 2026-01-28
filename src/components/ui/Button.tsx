@@ -34,7 +34,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         const isSymbolOnly = labelType === 'symbol';
 
         const baseStyles =
-            direction === 'vertical' 
+            direction === 'vertical'
                 ? 'inline-flex flex-col items-center justify-center transition-all duration-200 hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed'
                 : 'inline-flex items-center justify-center transition-all duration-200 hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed';
 
