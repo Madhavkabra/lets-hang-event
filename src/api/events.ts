@@ -63,14 +63,57 @@ export const saveDraftAPI = async (eventData: EventFormData): Promise<{ success:
 export const createEventAPI = async (eventData: EventFormData): Promise<{ success: boolean; eventId: string; eventUrl: string }> => {
   console.log('🚀 API Call: POST /api/events', {
     endpoint: `${API_BASE_URL}/events`,
-    body: {
-      ...eventData,
-      // Show full data structure for debugging
-      hasPreviewImage: !!eventData.previewImage,
-      hasBackgroundImage: !!eventData.backgroundImage,
-      phoneNumber: eventData.phoneNumber ? '***' : null,
-    },
     timestamp: new Date().toISOString(),
+  });
+
+  console.log('📦 FULL PAYLOAD DATA:', {
+    eventName: eventData.eventName,
+    phoneNumber: eventData.phoneNumber,
+    dateTime: eventData.dateTime,
+    location: eventData.location,
+    costPerPerson: eventData.costPerPerson,
+    description: eventData.description,
+    capacity: eventData.capacity,
+    privacy: eventData.privacy,
+    links: eventData.links,
+    announcements: eventData.announcements,
+    photoGallery: eventData.photoGallery ? {
+      count: eventData.photoGallery.length,
+      images: eventData.photoGallery.map((img, i) => ({
+        index: i,
+        size: img.length,
+        preview: img.substring(0, 50) + '...',
+      }))
+    } : null,
+    previewImage: eventData.previewImage ? {
+      size: eventData.previewImage.length,
+      type: eventData.previewImage.substring(0, 30),
+      preview: eventData.previewImage.substring(0, 100) + '...',
+    } : null,
+    backgroundImage: eventData.backgroundImage ? {
+      size: eventData.backgroundImage.length,
+      type: eventData.backgroundImage.substring(0, 30),
+      preview: eventData.backgroundImage.substring(0, 100) + '...',
+    } : null,
+  });
+
+  console.log('📋 RAW EVENT DATA (Complete):', eventData);
+
+  // Display summary in table format
+  console.table({
+    'Event Name': eventData.eventName || '(empty)',
+    'Phone Number': eventData.phoneNumber || '(empty)',
+    'Date & Time': eventData.dateTime || '(empty)',
+    'Location': eventData.location || '(empty)',
+    'Cost Per Person': eventData.costPerPerson || '(empty)',
+    'Description': eventData.description ? `${eventData.description.substring(0, 50)}...` : '(empty)',
+    'Capacity': eventData.capacity || '(not set)',
+    'Privacy': eventData.privacy ? `${eventData.privacy.substring(0, 50)}...` : '(not set)',
+    'Links Count': eventData.links?.length || 0,
+    'Announcements Count': eventData.announcements?.length || 0,
+    'Photo Gallery Count': eventData.photoGallery?.length || 0,
+    'Has Preview Image': !!eventData.previewImage,
+    'Has Background Image': !!eventData.backgroundImage,
   });
 
   try {

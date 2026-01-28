@@ -55,7 +55,7 @@ const LinksInput = () => {
         if (links.length > 1) {
             const newLinks = links.filter((_, i) => i !== index);
             setEventData(prev => ({ ...prev, links: newLinks }));
-            
+
             // Update invalid links indices
             const newInvalidLinks = new Set<number>();
             invalidLinks.forEach(invalidIndex => {

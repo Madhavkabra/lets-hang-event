@@ -8,9 +8,9 @@ const CustomizeBanner = () => {
 
     return (
         <>
-            <div className="relative rounded-2xl p-[1px] animate-spin-slow">
+            <div className="relative rounded-2xl p-[1px]">
                 {/* Main content with original background */}
-                <div className="rounded-2xl bg-black/20 p-4 overflow-hidden flex flex-col items-center justify-center h-[242px]">
+                <div className="rounded-2xl backdrop-blur-md bg-black/20 p-4 overflow-hidden flex flex-col items-center justify-center h-[242px]" style={{ border: '1px solid rgba(255, 255, 255, 0.2)' }}>
                     {/* Floating decorative icons */}
                     <div className='relative w-full flex h-[146px]'>
                         {/* Left side triangle - top to bottom */}
