@@ -2,6 +2,70 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Syne:wght@700&display=swap');
 
+@theme {
+  --font-syne: 'Syne', sans-serif;
+  --font-inter: 'Inter', system-ui, sans-serif;
+  --font-sf-pro: -apple-system, BlinkMacSystemFont, 'SF Pro Display', system-ui, sans-serif;
+}
+
+@layer utilities {
+  .text-header-brand {
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 100%;
+    letter-spacing: -0.29px;
+  }
+
+  .text-event-title {
+    font-size: 48px;
+    font-weight: 600;
+    line-height: 100%;
+    letter-spacing: 0%;
+  }
+
+  .text-title-1 {
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 100%;
+    letter-spacing: 0%;
+  }
+
+  .text-title-2 {
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 100%;
+    letter-spacing: 0%;
+  }
+
+  .text-title-2-medium {
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 100%;
+    letter-spacing: 0%;
+  }
+
+  .text-body {
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 100%;
+    letter-spacing: 0%;
+  }
+
+  .text-callout {
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 100%;
+    letter-spacing: 0%;
+  }
+
+  .text-button {
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 100%;
+    letter-spacing: 0%;
+  }
+}
+
 :root {
   font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
 }
