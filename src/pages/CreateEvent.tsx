@@ -105,28 +105,32 @@ const CreateEvent = () => {
                     </div>
 
                     {/* Right Column - Remaining width */}
-                    <div className="flex-1 space-y-6">
+                    <div className="flex-1">
                         {/* Event Title Input */}
                         <input
                             type="text"
                             placeholder="Name your event"
                             value={eventData.eventName}
                             onChange={(e) => handleInputChange('eventName', e.target.value)}
-                            className="w-full font-sf-pro text-event-title text-white placeholder:text-white/60 bg-transparent focus:outline-none"
+                            className="w-full font-sf-pro text-event-title text-white placeholder:text-white/50 bg-transparent focus:outline-none mb-8"
                         />
 
                         {/* Phone Input */}
-                        <PhoneInput />
+                        <div className="mb-6">
+                            <PhoneInput />
+                        </div>
 
                         {/* Details Group */}
-                        <DetailsGroup />
+                        <div className="mb-4">
+                            <DetailsGroup />
+                        </div>
 
                         {/* Description */}
                         <Textarea
                             placeholder="Describe your event"
                             value={eventData.description}
                             onChange={(e) => handleInputChange('description', e.target.value)}
-                            className="min-h-[120px]"
+                            className="mb-4"
                         />
 
                         {/* Action Chips */}
