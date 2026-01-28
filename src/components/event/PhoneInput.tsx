@@ -41,7 +41,7 @@ const PhoneInput = () => {
             setIsInvalid(true);
             return;
         }
-        
+
         try {
             const result = await saveDraftAPI(eventData);
             if (result.success) {

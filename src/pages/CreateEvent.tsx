@@ -65,10 +65,10 @@ const CreateEvent = () => {
     const handleSubmit = async () => {
         try {
             const result = await createEventAPI(eventData);
-            
+
             if (result.success) {
                 alert(`🎉 Event published successfully!\n\nEvent ID: ${result.eventId}\nEvent URL: ${result.eventUrl}`);
-                
+
                 // Optionally reset form or redirect
                 // setEventData(defaultEventData);
                 // window.location.href = result.eventUrl;

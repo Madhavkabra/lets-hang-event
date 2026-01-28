@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import { useRecoilState } from 'recoil';
 import { MapPin } from 'lucide-react';
 import { eventFormState } from '../../store/eventAtoms';
@@ -9,8 +10,22 @@ const LocationInput = () => {
     const [showDropdown, setShowDropdown] = useState(false);
     const [suggestions, setSuggestions] = useState<string[]>([]);
     const [isLoadingLocation, setIsLoadingLocation] = useState(false);
+    const [dropdownPosition, setDropdownPosition] = useState({ top: 0, left: 0, width: 0 });
     const inputRef = useRef<HTMLInputElement>(null);
+    const containerRef = useRef<HTMLDivElement>(null);
     const dropdownRef = useRef<HTMLDivElement>(null);
+
+    // Update dropdown position
+    const updateDropdownPosition = () => {
+        if (containerRef.current) {
+            const rect = containerRef.current.getBoundingClientRect();
+            setDropdownPosition({
+                top: rect.bottom + window.scrollY + 8, // 8px gap
+                left: rect.left + window.scrollX,
+                width: rect.width,
+            });
+        }
+    };
 
     // Handle click outside to close dropdown
     useEffect(() => {
@@ -18,16 +33,29 @@ const LocationInput = () => {
             if (
                 dropdownRef.current &&
                 !dropdownRef.current.contains(event.target as Node) &&
-                inputRef.current &&
-                !inputRef.current.contains(event.target as Node)
+                containerRef.current &&
+                !containerRef.current.contains(event.target as Node)
             ) {
                 setShowDropdown(false);
             }
         };
 
+        const handleScroll = () => {
+            if (showDropdown) {
+                updateDropdownPosition();
+            }
+        };
+
         document.addEventListener('mousedown', handleClickOutside);
-        return () => document.removeEventListener('mousedown', handleClickOutside);
-    }, []);
+        window.addEventListener('scroll', handleScroll, true);
+        window.addEventListener('resize', handleScroll);
+        
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+            window.removeEventListener('scroll', handleScroll, true);
+            window.removeEventListener('resize', handleScroll);
+        };
+    }, [showDropdown]);
 
     const handleInputChange = async (value: string) => {
         setEventData(prev => ({ ...prev, location: value }));
@@ -49,6 +77,8 @@ const LocationInput = () => {
     };
 
     const handleInputFocus = async () => {
+        updateDropdownPosition();
+        
         // Show "Use my location" option when focused
         if (!eventData.location.trim()) {
             setShowDropdown(true);
@@ -110,8 +140,8 @@ const LocationInput = () => {
     };
 
     return (
-        <div className="relative">
-            <div className="flex items-center gap-3 px-4 h-[36px]">
+        <>
+            <div ref={containerRef} className="flex items-center gap-3 px-4 h-[36px]">
                 <span className="shrink-0" style={{ fontSize: '16px', lineHeight: '16px' }}>📍</span>
                 <input
                     ref={inputRef}
@@ -124,11 +154,18 @@ const LocationInput = () => {
                 />
             </div>
 
-            {/* Dropdown */}
-            {showDropdown && (
+            {/* Dropdown - rendered as Portal */}
+            {showDropdown && createPortal(
                 <div
                     ref={dropdownRef}
-                    className="absolute left-0 right-0 mt-2 mx-4 bg-black/90 backdrop-blur-md rounded-lg border border-white/20 max-h-[300px] overflow-y-auto z-50"
+                    className="bg-black/90 backdrop-blur-md rounded-lg border border-white/20 max-h-[300px] overflow-y-auto"
+                    style={{
+                        position: 'fixed',
+                        top: `${dropdownPosition.top}px`,
+                        left: `${dropdownPosition.left}px`,
+                        width: `${dropdownPosition.width}px`,
+                        zIndex: 9999,
+                    }}
                 >
                     {/* Use my location option */}
                     <button
@@ -164,9 +201,10 @@ const LocationInput = () => {
                             No locations found
                         </div>
                     )}
-                </div>
+                </div>,
+                document.body
             )}
-        </div>
+        </>
     );
 };
 

@@ -23,7 +23,7 @@ const DetailsGroup = () => {
     const displayCost = eventData.costPerPerson ? `$ ${eventData.costPerPerson}` : '';
 
     return (
-        <Card variant="glass-dark" className="py-[4px]" style={{ border: '1px solid rgba(255, 255, 255, 0.2)' }}>
+        <Card variant="glass-dark" className="py-[4px] overflow-visible" style={{ border: '1px solid rgba(255, 255, 255, 0.2)' }}>
             {/* Date and time */}
             <div className="flex items-center gap-3 px-4 h-[36px] mt-4">
                 <span className="shrink-0" style={{ fontSize: '16px', lineHeight: '16px' }}>📅</span>
