@@ -1,24 +1,26 @@
-import { useState } from 'react';
+import { useRecoilState } from 'recoil';
 import { Trash2 } from 'lucide-react';
+import { eventFormState } from '../../store/eventAtoms';
 import Button from '../ui/Button';
 
 const AnnouncementsInput = () => {
-    const [announcements, setAnnouncements] = useState(['']);
+    const [eventData, setEventData] = useRecoilState(eventFormState);
+    const announcements = eventData.announcements || [''];
 
     const addAnnouncement = () => {
-        setAnnouncements([...announcements, '']);
+        setEventData(prev => ({ ...prev, announcements: [...announcements, ''] }));
     };
 
     const updateAnnouncement = (index: number, value: string) => {
         const newAnnouncements = [...announcements];
         newAnnouncements[index] = value;
-        setAnnouncements(newAnnouncements);
+        setEventData(prev => ({ ...prev, announcements: newAnnouncements }));
     };
 
     const deleteAnnouncement = (index: number) => {
         if (announcements.length > 1) {
             const newAnnouncements = announcements.filter((_, i) => i !== index);
-            setAnnouncements(newAnnouncements);
+            setEventData(prev => ({ ...prev, announcements: newAnnouncements }));
         }
     };
 

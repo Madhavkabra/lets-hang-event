@@ -1,9 +1,12 @@
 import { useState } from 'react';
+import { useRecoilState } from 'recoil';
 import { Trash2 } from 'lucide-react';
+import { eventFormState } from '../../store/eventAtoms';
 import Button from '../ui/Button';
 
 const LinksInput = () => {
-    const [links, setLinks] = useState(['']);
+    const [eventData, setEventData] = useRecoilState(eventFormState);
+    const links = eventData.links || [''];
     const [invalidLinks, setInvalidLinks] = useState<Set<number>>(new Set());
 
     const validateURL = (url: string): boolean => {
@@ -14,18 +17,18 @@ const LinksInput = () => {
 
         // URL validation regex - checks for http(s)://, www., or common TLDs
         const urlPattern = /^(https?:\/\/)?(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&//=]*)$/;
-        
+
         return urlPattern.test(url);
     };
 
     const addLink = () => {
-        setLinks([...links, '']);
+        setEventData(prev => ({ ...prev, links: [...links, ''] }));
     };
 
     const updateLink = (index: number, value: string) => {
         const newLinks = [...links];
         newLinks[index] = value;
-        setLinks(newLinks);
+        setEventData(prev => ({ ...prev, links: newLinks }));
 
         // Clear error when user starts typing
         if (invalidLinks.has(index)) {
@@ -38,20 +41,20 @@ const LinksInput = () => {
     const handleBlur = (index: number) => {
         const isValid = validateURL(links[index]);
         const newInvalidLinks = new Set(invalidLinks);
-        
+
         if (!isValid) {
             newInvalidLinks.add(index);
         } else {
             newInvalidLinks.delete(index);
         }
-        
+
         setInvalidLinks(newInvalidLinks);
     };
 
     const deleteLink = (index: number) => {
         if (links.length > 1) {
             const newLinks = links.filter((_, i) => i !== index);
-            setLinks(newLinks);
+            setEventData(prev => ({ ...prev, links: newLinks }));
             
             // Update invalid links indices
             const newInvalidLinks = new Set<number>();
@@ -73,7 +76,7 @@ const LinksInput = () => {
                     const isInvalid = invalidLinks.has(index);
                     return (
                         <div key={index} className="space-y-1">
-                            <div 
+                            <div
                                 className="flex items-center gap-2 px-3 py-2 rounded-lg transition-all duration-200"
                                 style={{
                                     backgroundColor: isInvalid ? 'rgba(239, 68, 68, 0.1)' : 'transparent',

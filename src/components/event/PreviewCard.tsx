@@ -24,7 +24,7 @@ const PreviewCard = ({ previewImage, onEditClick }: PreviewCardProps) => {
                     variant="material"
                     size="lg"
                     labelType="symbol"
-                    stroke="off"
+                    stroke={false}
                     icon={Edit}
                     onClick={onEditClick}
                     className="absolute bottom-5 right-5"

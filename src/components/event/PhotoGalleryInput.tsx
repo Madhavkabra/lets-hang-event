@@ -1,7 +1,9 @@
-import { useState } from 'react';
+import { useRecoilState } from 'recoil';
+import { eventFormState } from '../../store/eventAtoms';
 
 const PhotoGalleryInput = () => {
-    const [images, setImages] = useState<string[]>([]);
+    const [eventData, setEventData] = useRecoilState(eventFormState);
+    const images = eventData.photoGallery || [];
 
     const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
         const files = e.target.files;
@@ -12,7 +14,7 @@ const PhotoGalleryInput = () => {
                 reader.onloadend = () => {
                     newImages.push(reader.result as string);
                     if (newImages.length === files.length) {
-                        setImages([...images, ...newImages]);
+                        setEventData(prev => ({ ...prev, photoGallery: [...images, ...newImages] }));
                     }
                 };
                 reader.readAsDataURL(file);

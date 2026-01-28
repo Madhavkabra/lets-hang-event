@@ -1,4 +1,9 @@
+import { useRecoilState } from 'recoil';
+import { eventFormState } from '../../store/eventAtoms';
+
 const CapacityInput = () => {
+    const [eventData, setEventData] = useRecoilState(eventFormState);
+
     return (
         <div className="relative rounded-2xl" style={{ border: '1px solid rgba(255, 255, 255, 0.2)' }}>
             <div className="flex items-center gap-2 p-4 min-h-[64px] rounded-2xl bg-black/20 backdrop-blur-md">
@@ -6,6 +11,8 @@ const CapacityInput = () => {
                 <input
                     type="number"
                     placeholder="Enter capacity"
+                    value={eventData.capacity || ''}
+                    onChange={(e) => setEventData(prev => ({ ...prev, capacity: e.target.value }))}
                     className="flex-1 bg-transparent text-white placeholder:text-white/60 focus:outline-none font-sf-pro text-callout"
                     min="1"
                 />

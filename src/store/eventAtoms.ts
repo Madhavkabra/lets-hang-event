@@ -17,6 +17,8 @@ export interface EventFormData {
   capacity?: string;
   photoGallery?: string[];
   links?: string[];
+  privacy?: string;
+  announcements?: string[];
 }
 
 export const eventFormState = atom<EventFormData>({
