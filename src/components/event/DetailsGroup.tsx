@@ -1,6 +1,7 @@
 import { useRecoilState } from 'recoil';
 import { eventFormState } from '../../store/eventAtoms';
 import Card from '../ui/Card';
+import DateTimePicker from '../ui/DateTimePicker';
 import LocationInput from './LocationInput';
 
 const DetailsGroup = () => {
@@ -25,14 +26,11 @@ const DetailsGroup = () => {
     return (
         <Card variant="glass-dark" className="py-[4px] overflow-visible" style={{ border: '1px solid rgba(255, 255, 255, 0.2)' }}>
             {/* Date and time */}
-            <div className="flex items-center gap-3 px-4 h-[36px] mt-4">
-                <span className="shrink-0" style={{ fontSize: '16px', lineHeight: '16px' }}>📅</span>
-                <input
-                    type="text"
-                    placeholder="Date and time"
+            <div className="mt-4">
+                <DateTimePicker
                     value={eventData.dateTime}
-                    onChange={(e) => setEventData(prev => ({ ...prev, dateTime: e.target.value }))}
-                    className="flex-1 bg-transparent text-white placeholder:text-white/60 focus:outline-none font-sf-pro text-callout"
+                    onChange={(value) => setEventData(prev => ({ ...prev, dateTime: value }))}
+                    placeholder="Date and time"
                 />
             </div>
 

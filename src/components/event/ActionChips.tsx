@@ -47,7 +47,6 @@ const ActionChips = ({ onChipClick, activeChips }: ActionChipsProps) => {
             <Button
               size="lg"
               variant="ghost"
-              icon={ChevronDown}
               iconPosition="right"
               onClick={() => setShowDropdown(!showDropdown)}
             >
