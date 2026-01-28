@@ -1,34 +1,42 @@
 import { useRecoilState } from 'recoil';
-import { Save, ArrowRight } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import { eventFormState } from '../../store/eventAtoms';
-import Card from '../ui/Card';
+import Button from '../ui/Button';
 
 const PhoneInput = () => {
-  const [eventData, setEventData] = useRecoilState(eventFormState);
+    const [eventData, setEventData] = useRecoilState(eventFormState);
 
-  const handleSaveDraft = () => {
-    // Save draft logic - could save to localStorage or API
-    console.log('Saving draft:', eventData);
-  };
+    const handleSaveDraft = () => {
+        // Save draft logic - could save to localStorage or API
+        console.log('Saving draft:', eventData);
+    };
 
-  return (
-    <Card variant="glass-dark" className="flex items-center gap-3 px-4 py-3">
-      <Save className="w-5 h-5 text-white/80 flex-shrink-0" />
-      <input
-        type="tel"
-        placeholder="Enter phone number to save the draft"
-        value={eventData.phoneNumber}
-        onChange={(e) => setEventData(prev => ({ ...prev, phoneNumber: e.target.value }))}
-        className="flex-1 bg-transparent text-white placeholder:text-white/60 focus:outline-none"
-      />
-      <button 
-        onClick={handleSaveDraft}
-        className="p-2 hover:bg-white/10 rounded-lg transition-all"
-      >
-        <ArrowRight className="w-5 h-5 text-white" />
-      </button>
-    </Card>
-  );
+    return (
+        <div className="relative rounded-2xl">
+            {/* Inner background */}
+            <div
+                className="relative flex items-center gap-2 p-4 min-h-[64px] rounded-2xl bg-black/20 backdrop-blur-md"
+                style={{ border: '1px solid rgba(255, 255, 255, 0.2)' }}
+            >
+                <span className="flex-shrink-0" style={{ fontSize: '16px', lineHeight: '16px' }}>💾</span>
+                <input
+                    type="tel"
+                    placeholder="Enter phone number to save the draft"
+                    value={eventData.phoneNumber}
+                    onChange={(e) => setEventData(prev => ({ ...prev, phoneNumber: e.target.value }))}
+                    className="flex-1 bg-transparent text-white placeholder:text-white/60 focus:outline-none font-sf-pro text-callout"
+                />
+                <Button
+                    size="sm"
+                    labelType="symbol"
+                    stroke={false}
+                    icon={ArrowRight}
+                    onClick={handleSaveDraft}
+                    className="rounded-lg"
+                />
+            </div>
+        </div>
+    );
 };
 
 export default PhoneInput;
