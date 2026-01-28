@@ -1,34 +1,51 @@
-import { Megaphone, Link2, Dices } from 'lucide-react';
-import Card from '../ui/Card';
+import { Megaphone, Mic, Calculator, Link2, Image } from 'lucide-react';
+import Button from '../ui/Button';
 
 const CustomizeBanner = () => {
-  return (
-    <Card
-      variant="solid"
-      className="relative py-12 px-6 overflow-hidden bg-gradient-to-br from-purple-900/90 to-purple-800/90"
-    >
-      {/* Floating decorative icons */}
-      <div className="absolute top-4 left-8 opacity-30">
-        <Megaphone className="w-8 h-8 text-white rotate-12" />
-      </div>
-      <div className="absolute top-6 right-12 opacity-30">
-        <Link2 className="w-6 h-6 text-white -rotate-12" />
-      </div>
-      <div className="absolute bottom-6 right-8 opacity-30">
-        <Dices className="w-7 h-7 text-white rotate-45" />
-      </div>
+    return (
+        <div className="rounded-2xl bg-black/20 p-4 overflow-hidden flex flex-col items-center justify-center">
+            {/* Floating decorative icons */}
+            <div className='relative w-full flex h-[146px]'>
+                {/* Left side triangle - top to bottom */}
+                <div className="absolute top-8 left-18 opacity-30">
+                    <Megaphone className="w-8 h-8 text-white rotate-12" />
+                </div>
+                <div className="absolute top-15 left-6 opacity-30">
+                    <Mic className="w-7 h-7 text-white -rotate-6" />
+                </div>
+                <div className="absolute bottom-8 left-18 opacity-30">
+                    <Calculator className="w-7 h-7 text-white rotate-6" />
+                </div>
 
-      {/* Content */}
-      <div className="relative text-center space-y-4">
-        <p className="font-sf-pro text-title-1 text-white/90">
-          Customize your event your way
-        </p>
-        <button className="px-6 py-2 bg-white/20 backdrop-blur-md rounded-lg font-inter text-button text-white hover:bg-white/30 transition-all">
-          Customize
-        </button>
-      </div>
-    </Card>
-  );
+                {/* Right side triangle - top to bottom */}
+                <div className="absolute top-8 right-18 opacity-30">
+                    <Link2 className="w-8 h-8 text-white -rotate-12" />
+                </div>
+                <div className="absolute top-15 right-6 opacity-30">
+                    <Image className="w-7 h-7 text-white rotate-6" />
+                </div>
+                <div className="absolute bottom-8 right-18 opacity-30">
+                    <span className="text-md font-bold text-white rotate-6">RSVP</span>
+                </div>
+
+                <div className="font-sf-pro text-title-1 text-white max-w-[186px] flex mx-auto items-center justify-center">
+                    Customize your event your way
+                </div>
+            </div>
+
+            {/* Content */}
+            <div className="relative text-center space-y-4 w-full flex flex-col items-center">
+                <Button
+                    variant="glass"
+                    size="lg"
+                    fullWidth
+                    emoji="🎨"
+                >
+                    Customize
+                </Button>
+            </div>
+        </div>
+    );
 };
 
 export default CustomizeBanner;
