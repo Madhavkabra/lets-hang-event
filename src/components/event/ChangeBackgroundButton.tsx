@@ -1,8 +1,12 @@
 import Button from '../ui/Button';
 
-const ChangeBackgroundButton = () => {
+interface ChangeBackgroundButtonProps {
+  onClick: () => void;
+}
+
+const ChangeBackgroundButton = ({ onClick }: ChangeBackgroundButtonProps) => {
   return (
-    <Button variant="glass" fullWidth size="md">
+    <Button variant="tertiary" fullWidth size="md" emoji="🖼" onClick={onClick}>
       Change background
     </Button>
   );
