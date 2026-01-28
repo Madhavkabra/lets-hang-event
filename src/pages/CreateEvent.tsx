@@ -71,7 +71,10 @@ const CreateEvent = () => {
     return (
         <div
             className="min-h-screen bg-cover bg-center bg-no-repeat"
-            style={eventData.backgroundImage ? { backgroundImage: `url(${eventData.backgroundImage})` } : {}}
+            style={eventData.backgroundImage
+                ? { backgroundImage: `url(${eventData.backgroundImage})` }
+                : { background: 'linear-gradient(180deg, #F1C2DB 0%, #46497C 100%)' }
+            }
         >
             {/* Hidden file inputs */}
             <input
@@ -90,16 +93,18 @@ const CreateEvent = () => {
             />
 
             {/* Header */}
-            <header className="h-20 flex items-center px-[95px]">
-                <h1 className="font-syne text-header-brand text-white text-center">let's hang</h1>
+            <header className="h-20 px-[95px]">
+                <div className="h-full flex items-center max-w-[1250px] mx-auto">
+                    <h1 className="font-syne text-header-brand text-white text-center">let's hang</h1>
+                </div>
             </header>
 
             {/* Main Content */}
             <main className="px-[95px] pb-12">
                 {/* Two Column Layout */}
-                <div className="flex gap-12">
+                <div className="flex gap-12 max-w-[1250px] mx-auto">
                     {/* Left Column - 43% width, max 520px */}
-                    <div className="w-[43%] max-w-[520px] flex-shrink-0 space-y-4">
+                    <div className="w-[43%] flex-shrink-0 space-y-4">
                         <PreviewCard previewImage={eventData.previewImage} onEditClick={triggerPreviewUpload} />
                         <ChangeBackgroundButton onClick={triggerBackgroundUpload} />
                     </div>
@@ -134,7 +139,9 @@ const CreateEvent = () => {
                         />
 
                         {/* Action Chips */}
-                        <ActionChips />
+                        <div className="mb-6">
+                            <ActionChips />
+                        </div>
 
                         {/* Customize Banner */}
                         <CustomizeBanner />
