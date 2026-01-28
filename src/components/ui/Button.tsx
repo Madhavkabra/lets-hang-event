@@ -9,6 +9,7 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
     stroke?: boolean;
     fullWidth?: boolean;
     emoji?: string;
+    direction?: 'horizontal' | 'vertical';
 }
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
@@ -23,6 +24,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
             stroke = false,
             fullWidth = false,
             emoji,
+            direction = 'horizontal',
             className = '',
             style,
             ...props
@@ -32,7 +34,9 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         const isSymbolOnly = labelType === 'symbol';
 
         const baseStyles =
-            'inline-flex items-center justify-center transition-all duration-200 hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed';
+            direction === 'vertical' 
+                ? 'inline-flex flex-col items-center justify-center transition-all duration-200 hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed'
+                : 'inline-flex items-center justify-center transition-all duration-200 hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed';
 
         const variantStyles = {
             glass: 'bg-white/20 backdrop-blur-md text-white hover:bg-white/30',
@@ -45,18 +49,19 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         };
 
         // Different size styles for symbol-only vs text buttons
+        const gapStyle = direction === 'vertical' ? 'gap-2' : 'gap-2';
         const sizeStyles = isSymbolOnly ? {
             sm: 'p-2',
             md: 'p-2.5',
             lg: 'p-3',
         } : variant === 'tertiary' ? {
-            sm: 'px-4 py-2 text-sm gap-2',
-            md: 'px-5 py-3 text-base gap-2',
-            lg: 'px-6 py-3 text-lg gap-2',
+            sm: `px-4 py-2 text-sm ${gapStyle}`,
+            md: `px-5 py-3 text-base ${gapStyle}`,
+            lg: `px-6 py-3 text-lg ${gapStyle}`,
         } : {
-            sm: 'px-3 py-1.5 text-sm gap-2',
-            md: 'px-4 py-2 text-base gap-2',
-            lg: 'px-5 py-3 text-base gap-2',
+            sm: `px-3 py-1.5 text-sm ${gapStyle}`,
+            md: `px-4 py-2 text-base ${gapStyle}`,
+            lg: `px-5 py-3 text-base ${gapStyle}`,
         };
 
         // Icon size based on button size

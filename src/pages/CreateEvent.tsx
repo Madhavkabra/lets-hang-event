@@ -1,6 +1,5 @@
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import { useRecoilState } from 'recoil';
-import { Rocket } from 'lucide-react';
 import { eventFormState } from '../store/eventAtoms';
 import PreviewCard from '../components/event/PreviewCard';
 import ChangeBackgroundButton from '../components/event/ChangeBackgroundButton';
@@ -8,11 +7,17 @@ import PhoneInput from '../components/event/PhoneInput';
 import DetailsGroup from '../components/event/DetailsGroup';
 import ActionChips from '../components/event/ActionChips';
 import CustomizeBanner from '../components/event/CustomizeBanner';
+import CapacityInput from '../components/event/CapacityInput';
+import LinksInput from '../components/event/LinksInput';
+import PhotoGalleryInput from '../components/event/PhotoGalleryInput';
+import PrivacyInput from '../components/event/PrivacyInput';
+import AnnouncementsInput from '../components/event/AnnouncementsInput';
 import Button from '../components/ui/Button';
 import Textarea from '../components/ui/Textarea';
 
 const CreateEvent = () => {
     const [eventData, setEventData] = useRecoilState(eventFormState);
+    const [activeFields, setActiveFields] = useState<string[]>([]);
     const previewInputRef = useRef<HTMLInputElement>(null);
     const backgroundInputRef = useRef<HTMLInputElement>(null);
 
@@ -48,6 +53,12 @@ const CreateEvent = () => {
 
     const triggerBackgroundUpload = () => {
         backgroundInputRef.current?.click();
+    };
+
+    const handleChipClick = (chip: string) => {
+        if (!activeFields.includes(chip)) {
+            setActiveFields([...activeFields, chip]);
+        }
     };
 
     const handleSubmit = async () => {
@@ -103,8 +114,8 @@ const CreateEvent = () => {
             <main className="px-[95px] pb-12">
                 {/* Two Column Layout */}
                 <div className="flex gap-12 max-w-[1250px] mx-auto">
-                    {/* Left Column - 43% width, max 520px */}
-                    <div className="w-[43%] flex-shrink-0 space-y-4">
+                    {/* Left Column - 43% width */}
+                    <div className="w-[43%] shrink-0 space-y-4">
                         <PreviewCard previewImage={eventData.previewImage} onEditClick={triggerPreviewUpload} />
                         <ChangeBackgroundButton onClick={triggerBackgroundUpload} />
                     </div>
@@ -138,9 +149,36 @@ const CreateEvent = () => {
                             className="mb-4"
                         />
 
+                        {/* Dynamic Fields */}
+                        {activeFields.includes('Capacity') && (
+                            <div className="mb-4">
+                                <CapacityInput />
+                            </div>
+                        )}
+                        {activeFields.includes('Links') && (
+                            <div className="mb-4">
+                                <LinksInput />
+                            </div>
+                        )}
+                        {activeFields.includes('Photo gallery') && (
+                            <div className="mb-4">
+                                <PhotoGalleryInput />
+                            </div>
+                        )}
+                        {activeFields.includes('Privacy') && (
+                            <div className="mb-4">
+                                <PrivacyInput />
+                            </div>
+                        )}
+                        {activeFields.includes('Announcements') && (
+                            <div className="mb-4">
+                                <AnnouncementsInput />
+                            </div>
+                        )}
+
                         {/* Action Chips */}
                         <div className="mb-6">
-                            <ActionChips />
+                            <ActionChips onChipClick={handleChipClick} activeChips={activeFields} />
                         </div>
 
                         {/* Customize Banner */}
@@ -151,10 +189,12 @@ const CreateEvent = () => {
                             variant="glass"
                             fullWidth
                             size="lg"
-                            icon={Rocket}
-                            iconPosition="left"
+                            stroke={true}
+                            emoji="🚀"
+                            direction="vertical"
                             onClick={handleSubmit}
-                            className="mt-8"
+                            className="mt-8 font-sf-pro text-title-2-medium h-[71px]"
+                            style={{ color: 'rgba(52, 199, 89, 1)' }}
                         >
                             Go live
                         </Button>

@@ -6,7 +6,7 @@ interface ChangeBackgroundButtonProps {
 
 const ChangeBackgroundButton = ({ onClick }: ChangeBackgroundButtonProps) => {
   return (
-    <Button variant="tertiary" fullWidth size="md" emoji="🖼" onClick={onClick}>
+    <Button variant="tertiary" fullWidth size="md" emoji="🖼" onClick={onClick} className="h-[71px]">
       Change background
     </Button>
   );
