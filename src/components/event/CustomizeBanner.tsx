@@ -8,9 +8,7 @@ const CustomizeBanner = () => {
 
     return (
         <>
-            <div className="relative rounded-2xl p-[1px] animate-spin-slow" style={{
-                background: 'conic-gradient(from 0deg, rgba(255,255,255,0.6) 0deg, rgba(255,255,255,0.6) 45deg, transparent 90deg, transparent 270deg, rgba(255,255,255,0.6) 315deg, rgba(255,255,255,0.6) 360deg)',
-            }}>
+            <div className="relative rounded-2xl p-[1px] animate-spin-slow">
                 {/* Main content with original background */}
                 <div className="rounded-2xl bg-black/20 p-4 overflow-hidden flex flex-col items-center justify-center h-[242px]">
                     {/* Floating decorative icons */}

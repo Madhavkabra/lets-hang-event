@@ -49,9 +49,9 @@ const AnnouncementsInput = () => {
                     variant="ghost"
                     size="lg"
                     onClick={addAnnouncement}
-                    className="w-full"
+                    className="w-full text-white font-sf-pro text-title-2"
                 >
-                    + Add another announcement
+                    <span className="text-white">+ Add another announcement</span>
                 </Button>
             </div>
         </div>

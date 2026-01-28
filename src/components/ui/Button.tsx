@@ -45,7 +45,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
             secondary: 'bg-deep-violet text-white hover:bg-deep-violet/90',
             material: 'bg-material-ultrathin-2 backdrop-blur-material text-white',
             tertiary: 'bg-fills-tertiary-1 backdrop-blur-heavy text-white rounded-[16px]',
-            ghost: 'bg-transparent hover:opacity-80',
+            ghost: 'bg-transparent text-white hover:opacity-80',
         };
 
         // Different size styles for symbol-only vs text buttons

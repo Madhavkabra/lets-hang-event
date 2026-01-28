@@ -108,9 +108,9 @@ const LinksInput = () => {
                     variant="ghost"
                     size="lg"
                     onClick={addLink}
-                    className="w-full"
+                    className="w-full text-white font-sf-pro text-title-2"
                 >
-                    + Add another link
+                    <span className="text-white">+ Add another link</span>
                 </Button>
             </div>
         </div>
