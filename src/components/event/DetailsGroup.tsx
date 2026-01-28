@@ -37,13 +37,13 @@ const DetailsGroup = () => {
             </div>
 
             {/* Separator */}
-            <div className="h-px mx-4 my-4" style={{ background: 'rgba(127, 127, 127, 0.2)' }}></div>
+            <div className="h-px mx-4 my-4" style={{ background: 'rgba(255, 255, 255, 0.2)' }}></div>
 
             {/* Location */}
             <LocationInput />
 
             {/* Separator */}
-            <div className="h-px mx-4 my-4" style={{ background: 'rgba(127, 127, 127, 0.2)' }}></div>
+            <div className="h-px mx-4 my-4" style={{ background: 'rgba(255, 255, 255, 0.2)' }}></div>
 
             {/* Cost per person */}
             <div className="flex items-center gap-3 px-4 h-[36px] mb-4">
