@@ -1,16 +1,31 @@
 import { useRecoilState } from 'recoil';
-import { Calendar, MapPin, Banknote } from 'lucide-react';
 import { eventFormState } from '../../store/eventAtoms';
 import Card from '../ui/Card';
 
 const DetailsGroup = () => {
     const [eventData, setEventData] = useRecoilState(eventFormState);
 
+    const handleCostChange = (value: string) => {
+        // Remove any non-numeric characters except decimal point
+        const numericValue = value.replace(/[^0-9.]/g, '');
+        
+        // Ensure only one decimal point
+        const parts = numericValue.split('.');
+        const formattedValue = parts.length > 2 
+            ? parts[0] + '.' + parts.slice(1).join('') 
+            : numericValue;
+        
+        setEventData(prev => ({ ...prev, costPerPerson: formattedValue }));
+    };
+
+    // Format display value with $ sign
+    const displayCost = eventData.costPerPerson ? `$ ${eventData.costPerPerson}` : '';
+
     return (
         <Card variant="glass-dark" className="py-[4px]" style={{ border: '1px solid rgba(255, 255, 255, 0.2)' }}>
             {/* Date and time */}
             <div className="flex items-center gap-3 px-4 h-[36px] mt-4">
-                <span className="flex-shrink-0" style={{ fontSize: '16px', lineHeight: '16px' }}>📅</span>
+                <span className="shrink-0" style={{ fontSize: '16px', lineHeight: '16px' }}>📅</span>
                 <input
                     type="text"
                     placeholder="Date and time"
@@ -21,11 +36,11 @@ const DetailsGroup = () => {
             </div>
 
             {/* Separator */}
-            <div className="h-[1px] mx-4 my-4" style={{ background: 'rgba(127, 127, 127, 0.2)' }}></div>
+            <div className="h-px mx-4 my-4" style={{ background: 'rgba(127, 127, 127, 0.2)' }}></div>
 
             {/* Location */}
             <div className="flex items-center gap-3 px-4 h-[36px]">
-                <span className="flex-shrink-0" style={{ fontSize: '16px', lineHeight: '16px' }}>📍</span>
+                <span className="shrink-0" style={{ fontSize: '16px', lineHeight: '16px' }}>📍</span>
                 <input
                     type="text"
                     placeholder="Location"
@@ -36,16 +51,17 @@ const DetailsGroup = () => {
             </div>
 
             {/* Separator */}
-            <div className="h-[1px] mx-4 my-4" style={{ background: 'rgba(127, 127, 127, 0.2)' }}></div>
+            <div className="h-px mx-4 my-4" style={{ background: 'rgba(127, 127, 127, 0.2)' }}></div>
 
             {/* Cost per person */}
             <div className="flex items-center gap-3 px-4 h-[36px] mb-4">
-                <span className="flex-shrink-0" style={{ fontSize: '16px', lineHeight: '16px' }}>💵</span>
+                <span className="shrink-0" style={{ fontSize: '16px', lineHeight: '16px' }}>💵</span>
                 <input
                     type="text"
+                    inputMode="decimal"
                     placeholder="Cost per person"
-                    value={eventData.costPerPerson}
-                    onChange={(e) => setEventData(prev => ({ ...prev, costPerPerson: e.target.value }))}
+                    value={displayCost}
+                    onChange={(e) => handleCostChange(e.target.value)}
                     className="flex-1 bg-transparent text-white placeholder:text-white/60 focus:outline-none font-sf-pro text-callout"
                 />
             </div>
