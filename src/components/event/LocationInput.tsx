@@ -158,7 +158,7 @@ const LocationInput = () => {
             {showDropdown && createPortal(
                 <div
                     ref={dropdownRef}
-                    className="bg-black/90 backdrop-blur-md rounded-lg border border-white/20 max-h-[300px] overflow-y-auto"
+                    className="bg-black/20 backdrop-blur-md rounded-2xl border border-white/20 max-h-[300px] overflow-y-auto shadow-xl"
                     style={{
                         position: 'fixed',
                         top: `${dropdownPosition.top}px`,
