@@ -1,7 +1,11 @@
+import { useRecoilState } from 'recoil';
 import { Calendar, MapPin, Banknote } from 'lucide-react';
+import { eventFormState } from '../../store/eventAtoms';
 import Card from '../ui/Card';
 
 const DetailsGroup = () => {
+  const [eventData, setEventData] = useRecoilState(eventFormState);
+
   return (
     <Card variant="glass-dark" className="divide-y divide-white/10">
       {/* Date and time */}
@@ -10,6 +14,8 @@ const DetailsGroup = () => {
         <input
           type="text"
           placeholder="Date and time"
+          value={eventData.dateTime}
+          onChange={(e) => setEventData(prev => ({ ...prev, dateTime: e.target.value }))}
           className="flex-1 bg-transparent text-white placeholder:text-white/60 focus:outline-none"
         />
       </div>
@@ -20,6 +26,8 @@ const DetailsGroup = () => {
         <input
           type="text"
           placeholder="Location"
+          value={eventData.location}
+          onChange={(e) => setEventData(prev => ({ ...prev, location: e.target.value }))}
           className="flex-1 bg-transparent text-white placeholder:text-white/60 focus:outline-none"
         />
       </div>
@@ -30,6 +38,8 @@ const DetailsGroup = () => {
         <input
           type="text"
           placeholder="Cost per person"
+          value={eventData.costPerPerson}
+          onChange={(e) => setEventData(prev => ({ ...prev, costPerPerson: e.target.value }))}
           className="flex-1 bg-transparent text-white placeholder:text-white/60 focus:outline-none"
         />
       </div>
