@@ -6,6 +6,16 @@
   --font-syne: 'Syne', sans-serif;
   --font-inter: 'Inter', system-ui, sans-serif;
   --font-sf-pro: -apple-system, BlinkMacSystemFont, 'SF Pro Display', system-ui, sans-serif;
+  --blur-material: 30px;
+  --blur-heavy: 100px;
+  --color-material-ultrathin-1: #9C9C9C;
+  --color-material-ultrathin-2: rgba(37, 37, 37, 0.55);
+  --color-fills-tertiary-1: rgba(194, 194, 194, 0.5);
+  --color-fills-tertiary-2: rgba(127, 127, 127, 0.2);
+  --color-text-secondary: #3D3D3D;
+  --color-deep-violet: #2e1065;
+  --color-soft-pink: #ec4899;
+  --color-dark-purple: #1e1b4b;
 }
 
 @layer utilities {
